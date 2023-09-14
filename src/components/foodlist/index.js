@@ -2,10 +2,19 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native"
 
 import { LinearGradient } from "expo-linear-gradient"
 
-export function FoodList({ data }){
-    return(
-        <TouchableOpacity activeOpacity={0.9} style={styles.container}>
-            <Image 
+import { useNavigation } from '@react-navigation/native'
+
+export function FoodList({ data }) {
+    const navigation = useNavigation();
+
+    function handleNavigate(){
+        console.log(data)
+        navigation.navigate("Detail", {data: data })
+    }
+
+    return (
+        <TouchableOpacity activeOpacity={0.9} style={styles.container} onPress={handleNavigate}>
+            <Image
                 source={{ uri: data.cover }}
                 style={styles.cover}
             />
@@ -13,10 +22,10 @@ export function FoodList({ data }){
                 <Text style={styles.name}>{data.name}</Text>
                 <Text style={styles.description}>{data.total_ingredients} ingredientes | {data.time}</Text>
             </View>
-            <LinearGradient 
-            style={styles.gradient}
-            colors={['transparent', 'rgba(0,0,0, 0.70)','rgba(0,0,0, 0.95)']}
-            
+            <LinearGradient
+                style={styles.gradient}
+                colors={['transparent', 'rgba(0,0,0, 0.70)', 'rgba(0,0,0, 0.95)']}
+
             />
         </TouchableOpacity>
     )
@@ -25,29 +34,29 @@ export function FoodList({ data }){
 
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         marginBottom: 14,
     },
-    cover:{
+    cover: {
         width: '100%',
         height: 200,
         borderRadius: 14
     },
-    info:{
+    info: {
         position: 'absolute',
         bottom: 14,
         left: 14,
-        zIndex:99
+        zIndex: 99
     },
-    name:{
+    name: {
         fontSize: 18,
         color: "#FFF",
         fontWeight: 'bold'
     },
-    description:{
+    description: {
         color: "#FFF"
     },
-    gradient:{
+    gradient: {
         position: 'absolute',
         left: 0,
         right: 0,
