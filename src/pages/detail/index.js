@@ -53,8 +53,14 @@ export function Detail() {
     }, [navigation, route.params?.data, favorite])
 
 
-    function handleFavoriteReceipe(){
-
+    async function handleFavoriteReceipe(receipe){
+        if(favorite){
+            await removeItem(receipe.id)
+            setFavorite(false);
+        }else{
+            await saveFavorite("@appreceitas", receipe)
+            setFavorite(true);
+        }
     }
 
 
